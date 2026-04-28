@@ -1,0 +1,17 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # These are passed to the Dockerfile during the build process
+        - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+        - VITE_SB_PUBLISHABLE_KEY=${VITE_SB_PUBLISHABLE_KEY}
+        - VITE_IS_DEMO=${VITE_IS_DEMO:-false}
+        - VITE_INBOUND_EMAIL=${VITE_INBOUND_EMAIL}
+        - VITE_ATTACHMENTS_BUCKET=${VITE_ATTACHMENTS_BUCKET:-attachments}
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    env_file:
+      - .env
